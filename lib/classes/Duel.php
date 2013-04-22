@@ -22,12 +22,16 @@
  *  Modified:   0000-00-00
  */
 
-require_once IMGDUEL_CLASS_PATH . '/ITableRowGateway.php';
+imgduel_load_class('ITableRowGateway');
+imgduel_load_class('IDataMap');
+imgduel_load_class('Database');
+imgduel_load_class('Registry');
+imgduel_load_class('Token');
 
 /**
  * Class Duel
  */
-class Duel implements ITableRowGateway
+class Duel implements ITableRowGateway, IDataMap
 {
     /**
      * @var int
@@ -36,18 +40,60 @@ class Duel implements ITableRowGateway
     /**
      * @var int
      */
+    public $image1;
+    /**
+     * @var int
+     */
+    public $image2;
+    /**
+     * @var int
+     */
+    public $user_id;
+    /**
+     * @var string
+     */
     public $created;
+    /**
+     * @var string
+     */
+    public $token;
+    /**
+     * @var bool
+     */
+    private $_new = true;
 
     //  ITableRowGateway
 
     /**
      *  Fetch Duel by Primary Key
-     *  @param $pk
-     *  @return Duel
+     * @param $pk
+     * @return Duel
      */
     public static function fetchByPk($pk)
     {
+        $db = Registry::get('IMGDUEL_DATABASE');
+        $sql = 'SELECT `id`, `image1`, `image2`, `user_id`, `created`, `token` FROM `duel` WHERE `id` = ?';
+        $ret = $db->fetchObjectOfType('Duel', $sql, (int)$pk);
+        if (isset($ret)) {
+            $ret->_new = false;
+        }
+        return $ret;
+    }
 
+    /**
+     * Gets a map to all the class members
+     * @return array
+     */
+    public static function getMap()
+    {
+        return array(
+            'id' => IMGDUEL_DATAMAP_INT,
+            'image1' => IMGDUEL_DATAMAP_INT,
+            'image2' => IMGDUEL_DATAMAP_INT,
+            'user_id' => IMGDUEL_DATAMAP_INT,
+            'created' => IMGDUEL_DATAMAP_STRING,
+            'token' => IMGDUEL_DATAMAP_STRING
+        );
     }
 
     /**
@@ -55,7 +101,27 @@ class Duel implements ITableRowGateway
      */
     public function save()
     {
+        $db = Registry::get('IMGDUEL_DATABASE');
+        if ($this->_new) {
+            $this->created = date('Y-m-d H:i:s');
+            $token = new Token();
+            $this->token = (string)$token;
 
+            $ret = $db->write('INSERT INTO `duel` (`id`,`image1`,`image2`,`user_id`,`created`,`token`) VALUES (NULL, ?, ?, ?, ?, ?)',
+                $this->image1,
+                $this->image2,
+                $this->user_id,
+                $this->created,
+                $this->token
+            );
+            if ($ret) {
+                $this->id = (int)$db->lastInsertId();
+                $this->_new = false;
+            }
+            return $ret;
+        }
+        //  there is nothing that can be updated in this class
+        return false;
     }
 
     /**
@@ -63,6 +129,11 @@ class Duel implements ITableRowGateway
      */
     public function delete()
     {
-
+        if (!isset($this->id)) {
+            return 0;
+        }
+        $db = Registry::get('IMGDUEL_DATABASE');
+        $ret = $db->write('DELETE FROM `duel` WHERE `id` = ?', (int)$this->id);
+        return $ret ? $db->affectedRows() : 0;
     }
 }

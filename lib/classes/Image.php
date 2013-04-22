@@ -22,12 +22,14 @@
  *  Modified:   0000-00-00
  */
 
-require_once IMGDUEL_CLASS_PATH . '/ITableRowGateway.php';
+imgduel_load_class('ITableRowGateway');
+imgduel_load_class('IDataMap');
+
 
 /**
  * Class Image
  */
-class Image implements ITableRowGateway
+class Image implements ITableRowGateway, IDataMap
 {
     /**
      * @var int
@@ -42,20 +44,44 @@ class Image implements ITableRowGateway
      */
     public $filepath;
     /**
-     * @var int
+     * @var string
      */
     public $created;
+    /**
+     * @var bool
+     */
+    private $_new = true;
 
     //  ITableRowGateway
 
     /**
      *  Fetch Image by Primary Key
-     *  @param $pk
-     *  @return Image
+     * @param $pk
+     * @return Image
      */
     public static function fetchByPk($pk)
     {
+        $db = Registry::get('IMGDUEL_DATABASE');
+        $sql = 'SELECT `id`, `token`, `filepath`, `created` FROM `image` WHERE `id` = ?';
+        $ret = $db->fetchObjectOfType('Image', $sql, (int)$pk);
+        if (isset($ret)) {
+            $ret->_new = false;
+        }
+        return $ret;
+    }
 
+    /**
+     * Gets a map to all the class members
+     * @return array
+     */
+    public static function getMap()
+    {
+        return array(
+            'id' => IMGDUEL_DATAMAP_INT,
+            'token' => IMGDUEL_DATAMAP_STRING,
+            'filepath' => IMGDUEL_DATAMAP_STRING,
+            'created' => IMGDUEL_DATAMAP_STRING
+        );
     }
 
     /**
@@ -63,7 +89,27 @@ class Image implements ITableRowGateway
      */
     public function save()
     {
+        $db = Registry::get('IMGDUEL_DATABASE');
+        if ($this->_new) {
+            if (!(isset($this->filepath) && file_exists($this->filepath))) {
+                return false;
+            }
+            $this->token = sha1_file($this->filepath);
+            $this->created = date('Y-m-d H:i:s');
 
+            $ret = $db->write('INSERT INTO `image` (`id`,`token`,`filepath`,`created`) VALUES (NULL, ?, ?, ?)',
+                $this->token,
+                $this->filepath,
+                $this->created
+            );
+            if ($ret) {
+                $this->id = (int)$db->lastInsertId();
+                $this->_new = false;
+            }
+            return $ret;
+        }
+        //  there is nothing to update for this class
+        return false;
     }
 
     /**
@@ -71,6 +117,11 @@ class Image implements ITableRowGateway
      */
     public function delete()
     {
-
+        if (!isset($this->id)) {
+            return 0;
+        }
+        $db = Registry::get('IMGDUEL_DATABASE');
+        $ret = $db->write('DELETE FROM `image` WHERE `id` = ?', (int)$this->id);
+        return $ret ? $db->affectedRows() : 0;
     }
 }

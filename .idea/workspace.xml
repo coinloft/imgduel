@@ -1,16 +1,34 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
+  <component name="AnalysisUIOptions">
+    <option name="SCOPE_TYPE" value="3" />
+  </component>
   <component name="ChangeListManager">
-    <list default="true" id="648f140f-210c-407c-af83-1009689a10f6" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/classes/Duel.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/classes/ITableRowGateway.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/classes/Image.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/classes/User.php" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/lib/classes/Vote.php" />
+    <list default="true" id="648f140f-210c-407c-af83-1009689a10f6" name="Default" comment="" />
+    <list id="8aea08a7-1916-43fc-bd1c-15344a8918a9" name="ignore" comment="">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="imgduel.iws" />
     <ignored path=".idea/workspace.xml" />
-    <file path="/Dummy.txt" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1365911765449" ignored="false" />
+    <file path="/Dummy.txt" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366598542843" ignored="false" />
+    <file path="/bootstrap.php" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366153242872" ignored="false" />
+    <file path="/User.php" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366594452850" ignored="false" />
+    <file path="/Registry.php" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366170670329" ignored="false" />
+    <file path="/Config.php" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366468713377" ignored="false" />
+    <file path="/functions.php" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366172387052" ignored="false" />
+    <file path="$APPLICATION_HOME_DIR$/plugins/xpath/lib/xpath.jar!/org/intellij/lang/xpath/xslt/resources/documentation.xsl" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366254711733" ignored="false" />
+    <file path="$APPLICATION_HOME_DIR$/plugins/xpath/lib/xpath.jar!/org/intellij/lang/xpath/xslt/resources/documentation.xml" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366254711733" ignored="false" />
+    <file path="$APPLICATION_HOME_DIR$/lib/phpstorm.jar!/resources/relaxng.rng" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366254711733" ignored="false" />
+    <file path="/Session.php" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366562930468" ignored="false" />
+    <file path="/Token.php" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366518448065" ignored="false" />
+    <file path="/Database.php" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366582780086" ignored="false" />
+    <file path="/index.php" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366582675662" ignored="false" />
+    <file path="/OMGWTFCATS.local.ini" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366425241099" ignored="false" />
+    <file path="/IDataMap.php" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366427973758" ignored="false" />
+    <file path="/Vote.php" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366595729534" ignored="false" />
+    <file path="/Image.php" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366595762117" ignored="false" />
+    <file path="/Duel.php" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366595742793" ignored="false" />
+    <file path="/runtime.php" changelist="648f140f-210c-407c-af83-1009689a10f6" time="1366515785174" ignored="false" />
     <option name="TRACKING_ENABLED" value="true" />
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -28,6 +46,33 @@
   <component name="FavoritesManager">
     <favorites_list name="imgduel" />
   </component>
+  <component name="FileEditorManager">
+    <leaf>
+      <file leaf-file-name="index.php" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/www/index.php">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="36" column="33" selection-start="1686" selection-end="1686" vertical-scroll-proportion="-21.375">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="README.md" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/lib/classes/README.md">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="31" column="66" selection-start="1205" selection-end="1205" vertical-scroll-proportion="1.028761">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+    </leaf>
+  </component>
+  <component name="FindManager">
+    <FindUsagesManager>
+      <setting name="OPEN_NEW_TAB" value="false" />
+    </FindUsagesManager>
+  </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
@@ -36,6 +81,29 @@
       <MyDateState />
     </option>
   </component>
+  <component name="IdeDocumentHistory">
+    <option name="changedFiles">
+      <list>
+        <option value="$PROJECT_DIR$/lib/classes/Registry.php" />
+        <option value="$PROJECT_DIR$/lib/functions.php" />
+        <option value="$PROJECT_DIR$/conf/OMGWTFCATS.local.ini" />
+        <option value="$PROJECT_DIR$/lib/classes/IDataMap.php" />
+        <option value="$PROJECT_DIR$/lib/classes/Config.php" />
+        <option value="$PROJECT_DIR$/lib/runtime.php" />
+        <option value="$PROJECT_DIR$/lib/bootstrap.php" />
+        <option value="$PROJECT_DIR$/lib/classes/Token.php" />
+        <option value="$PROJECT_DIR$/lib/classes/Session.php" />
+        <option value="$PROJECT_DIR$/www/index.php" />
+        <option value="$PROJECT_DIR$/lib/classes/Database.php" />
+        <option value="$PROJECT_DIR$/lib/classes/User.php" />
+        <option value="$PROJECT_DIR$/lib/classes/Vote.php" />
+        <option value="$PROJECT_DIR$/lib/classes/Duel.php" />
+        <option value="$PROJECT_DIR$/lib/classes/Image.php" />
+        <option value="$PROJECT_DIR$/lib/classes/README.md" />
+      </list>
+    </option>
+  </component>
+  <component name="PhpWorkspaceProjectConfiguration" backward_compatibility_performed="true" />
   <component name="ProjectFrameBounds">
     <option name="x" value="4" />
     <option name="y" value="22" />
@@ -68,7 +136,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -149,10 +216,17 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
+    <property name="options.splitter.main.proportions" value="0.3" />
     <property name="WebServerToolWindowFactoryState" value="true" />
+    <property name="options.lastSelected" value="reference.settingsdialog.IDE.editor.colors.Font" />
+    <property name="last_opened_file_path" value="$PROJECT_DIR$/../../EvilPHP/config/evilphp.ini" />
+    <property name="FullScreen" value="false" />
+    <property name="options.splitter.details.proportions" value="0.2" />
+    <property name="options.searchVisible" value="true" />
   </component>
   <component name="PublishConfig">
     <servers>
@@ -171,12 +245,40 @@
     </key>
   </component>
   <component name="RunManager">
+    <configuration default="true" type="PHPUnitRunConfigurationType" factoryName="PHPUnit">
+      <TestRunner />
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpLocalRunConfigurationType" factoryName="PHP Console">
+      <method />
+    </configuration>
+    <configuration default="true" type="PhpUnitRemoteRunConfigurationType" factoryName="PHPUnit on Server">
+      <method />
+    </configuration>
     <list size="0" />
   </component>
   <component name="ShelveChangesManager" show_recycled="false" />
+  <component name="SvnConfiguration" maxAnnotateRevisions="500" myUseAcceleration="nothing" myAutoUpdateAfterCommit="false" cleanupOnStartRun="false" SSL_PROTOCOLS="sslv3">
+    <option name="USER" value="" />
+    <option name="PASSWORD" value="" />
+    <option name="mySSHConnectionTimeout" value="30000" />
+    <option name="mySSHReadTimeout" value="30000" />
+    <option name="LAST_MERGED_REVISION" />
+    <option name="MERGE_DRY_RUN" value="false" />
+    <option name="MERGE_DIFF_USE_ANCESTRY" value="true" />
+    <option name="UPDATE_LOCK_ON_DEMAND" value="false" />
+    <option name="IGNORE_SPACES_IN_MERGE" value="false" />
+    <option name="CHECK_NESTED_FOR_QUICK_MERGE" value="false" />
+    <option name="IGNORE_SPACES_IN_ANNOTATE" value="true" />
+    <option name="SHOW_MERGE_SOURCES_IN_ANNOTATE" value="true" />
+    <option name="FORCE_UPDATE" value="false" />
+    <option name="IGNORE_EXTERNALS" value="false" />
+    <myIsUseDefaultProxy>false</myIsUseDefaultProxy>
+  </component>
   <component name="TaskManager">
     <task active="true" id="Default" summary="Default task">
       <changelist id="648f140f-210c-407c-af83-1009689a10f6" name="Default" comment="" />
+      <changelist id="8aea08a7-1916-43fc-bd1c-15344a8918a9" name="ignore" comment="" />
       <created>1365911765028</created>
       <updated>1365911765028</updated>
     </task>
@@ -186,23 +288,23 @@
     <frame x="4" y="22" width="1420" height="833" extended-state="0" />
     <editor active="false" />
     <layout>
-      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32867134" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
-      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
-      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2496361" sideWeight="0.67132866" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Changes" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32867134" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Remote Host" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
-      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
-      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
+      <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.2496361" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18995634" sideWeight="0.67132866" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
-      <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="-1" side_tool="false" content_ui="tabs" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
   </component>
@@ -232,7 +334,7 @@
     <option name="SHOW_ONLY_CHANGED_IN_SELECTION_DIFF" value="true" />
     <option name="CHECK_COMMIT_MESSAGE_SPELLING" value="true" />
     <option name="DEFAULT_PATCH_EXTENSION" value="patch" />
-    <option name="SHORT_DIFF_HORISONTALLY" value="true" />
+    <option name="SHORT_DIFF_HORIZONTALLY" value="true" />
     <option name="SHORT_DIFF_EXTRA_LINES" value="2" />
     <option name="SOFT_WRAPS_IN_SHORT_DIFF" value="true" />
     <option name="INCLUDE_TEXT_INTO_PATCH" value="false" />
@@ -265,6 +367,130 @@
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager />
+  </component>
+  <component name="editorHistoryManager">
+    <entry file="file://$PROJECT_DIR$/lib/classes/Config.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="41" column="28" selection-start="1623" selection-end="1623" vertical-scroll-proportion="-0.96875">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/functions.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="38" column="21" selection-start="1690" selection-end="1690" vertical-scroll-proportion="0.3846154">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/classes/IDataMap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="52" column="11" selection-start="1732" selection-end="1732" vertical-scroll-proportion="0.84162897">
+          <folding>
+            <element signature="e#6#1242#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/runtime.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="26" column="46" selection-start="1359" selection-end="1359" vertical-scroll-proportion="0.5882353">
+          <folding>
+            <element signature="e#6#1241#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/bootstrap.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="43" column="83" selection-start="2082" selection-end="2082" vertical-scroll-proportion="0.49773756">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/conf/OMGWTFCATS.local.ini">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="0" column="0" selection-start="0" selection-end="202" vertical-scroll-proportion="0.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/classes/Registry.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="61" column="40" selection-start="2051" selection-end="2051" vertical-scroll-proportion="-25.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/classes/Token.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="88" column="28" selection-start="3186" selection-end="3186" vertical-scroll-proportion="-9.5">
+          <folding>
+            <element signature="e#6#1239#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/classes/Session.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="84" column="5" selection-start="2612" selection-end="2612" vertical-scroll-proportion="-15.416667">
+          <folding>
+            <element signature="e#6#1241#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/classes/Database.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="320" column="45" selection-start="10387" selection-end="10387" vertical-scroll-proportion="-0.18461539">
+          <folding>
+            <element signature="e#6#1242#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/classes/Image.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="119" column="32" selection-start="3420" selection-end="3420" vertical-scroll-proportion="0.7058824">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/classes/Duel.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="134" column="48" selection-start="3782" selection-end="3782" vertical-scroll-proportion="0.77375567">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/classes/Vote.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="103" column="44" selection-start="3022" selection-end="3022" vertical-scroll-proportion="-22.0">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/classes/User.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="140" column="8" selection-start="4044" selection-end="4276" vertical-scroll-proportion="0.7">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/www/index.php">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="36" column="33" selection-start="1686" selection-end="1686" vertical-scroll-proportion="-21.375">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/lib/classes/README.md">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="31" column="66" selection-start="1205" selection-end="1205" vertical-scroll-proportion="1.028761">
+          <folding />
+        </state>
+      </provider>
+    </entry>
   </component>
 </project>
 

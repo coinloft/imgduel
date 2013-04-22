@@ -15,35 +15,40 @@
  *  OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  *  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- *  bootstrap.php
+ *  IDataMap.php
  *  Build A Social App In PHP
  *  SkillShare/Start It Up Delaware/The coIN Loft
- *  Created:    2013-03-30
+ *  Created:    2013-04-19
  *  Modified:   0000-00-00
  */
 
-//  FLAGS
-/*********************************************************************************/
-//  the bootstrap is loaded.
-define ('IMGDUEL_BOOSTRAP', true);
+if (!defined ('IMGDUEL_DATAMAP_VARS')) {
+    /**
+     *  flag
+     */
+    define ('IMGDUEL_DATAMAP_VARS', true);
+    /**
+     *  default enum
+     */
+    define ('IMGDUEL_DATAMAP_STRING', 0);
+    /**
+     *  int enum
+     */
+    define ('IMGDUEL_DATAMAP_INT',  100);
+    /**
+     *  bool enum
+     */
+    define ('IMGDUEL_DATAMAP_BOOL', 101);
+}
 
-//  PATHS
-/*********************************************************************************/
-//  Root path
-define ('IMGDUEL_ROOT_PATH', realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..'));
-//  Lib path
-define ('IMGDUEL_LIB_PATH', IMGDUEL_ROOT_PATH . DIRECTORY_SEPARATOR . 'lib');
-//  Class path
-define ('IMGDUEL_CLASS_PATH', IMGDUEL_LIB_PATH . DIRECTORY_SEPARATOR . 'classes');
-//  Config Path
-define ('IMGDUEL_CONF_PATH', IMGDUEL_ROOT_PATH . DIRECTORY_SEPARATOR . 'conf');
-//  Site Root
-define ('IMGDUEL_WWW_PATH', IMGDUEL_ROOT_PATH . DIRECTORY_SEPARATOR . 'www');
-
-//  RUNTIME SETTINGS
-/*********************************************************************************/
-require IMGDUEL_LIB_PATH . DIRECTORY_SEPARATOR . 'runtime.php';
-
-//  INCLUDES
-/*********************************************************************************/
-require IMGDUEL_LIB_PATH . DIRECTORY_SEPARATOR . 'functions.php';
+/**
+ * Interface IDataMap
+ */
+interface IDataMap
+{
+    /**
+     * Gets a map to all the class members
+     * @return array
+     */
+    static function getMap();
+}

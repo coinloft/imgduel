@@ -22,31 +22,55 @@
  *  Modified:   0000-00-00
  */
 
-require_once IMGDUEL_CLASS_PATH . '/ITableRowGateway.php';
+imgduel_load_class('ITableRowGateway');
+imgduel_load_class('IDataMap');
+imgduel_load_class('Registry');
 
 /**
  * Class Vote
  */
-class Vote implements ITableRowGateway
+class Vote implements ITableRowGateway, IDataMap
 {
     /**
      * @var int
      */
     public $id;
     /**
-     * @var int
+     * @var string
      */
     public $created;
+    /**
+     * @var bool
+     */
+    private $_new = true;
 
     //  ITableRowGateway
 
     /**
      *  Fetch Vote by Primary Key
-     *  @param $pk
+     * @param $pk
      */
     public static function fetchByPk($pk)
     {
+        $db = Registry::get('IMGDUEL_DATABASE');
+        $sql = 'SELECT `id`, `created` FROM `vote` WHERE `id` = ?';
+        $ret = $db->fetchObjectOfType('Vote', $sql, (int)$pk);
+        if (isset($ret)) {
+            $ret->_new = false;
+        }
+        return $ret;
+    }
 
+    /**
+     * Gets a map to all the class members
+     * @return array
+     */
+    public static function getMap()
+    {
+        return array(
+            'id' => IMGDUEL_DATAMAP_INT,
+            'created' => IMGDUEL_DATAMAP_STRING
+        );
     }
 
     /**
@@ -54,7 +78,18 @@ class Vote implements ITableRowGateway
      */
     public function save()
     {
-
+        $db = Registry::get('IMGDUEL_DATABASE');
+        if ($this->_new) {
+            $this->created = date('Y-m-d H:i:s');
+            $ret = $db->write('INSERT INTO `vote` (`id`,`created`) VALUES (NULL, ?)', $this->created);
+            if ($ret) {
+                $this->id = (int)$db->lastInsertId();
+                $this->_new = false;
+            }
+            return $ret;
+        }
+        //  there is no update logic for this class
+        return false;
     }
 
     /**
@@ -62,6 +97,11 @@ class Vote implements ITableRowGateway
      */
     public function delete()
     {
-
+        if (!isset($this->id)) {
+            return 0;
+        }
+        $db = Registry::get('IMGDUEL_DATABASE');
+        $ret = $db->write('DELETE FROM `vote` WHERE `id` = ?', (int)$this->id);
+        return $ret ? $db->affectedRows() : 0;
     }
 }

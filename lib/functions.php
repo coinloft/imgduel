@@ -28,8 +28,20 @@
  */
 function imgduel_load_class($classname)
 {
+    static $loadedClasses = null;
+    if (!isset($loadedClasses)) {
+        $loadedClasses = array();
+    }
+    if (in_array($classname, $loadedClasses, true)) {
+        return false;
+    }
     $path = sprintf('%s%s%s.php', IMGDUEL_CLASS_PATH, DIRECTORY_SEPARATOR, str_replace('_', DIRECTORY_SEPARATOR, $classname));
-    require_once $path;
+    $loaded = require $path;
+    if (1 === $loaded) {
+        $loadedClasses[] = $classname;
+        return true;
+    }
+    return false;
 }
 
 /**

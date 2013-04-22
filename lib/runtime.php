@@ -15,35 +15,13 @@
  *  OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  *  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- *  bootstrap.php
+ *  runtime.php
  *  Build A Social App In PHP
  *  SkillShare/Start It Up Delaware/The coIN Loft
- *  Created:    2013-03-30
+ *  Created:    2013-04-20
  *  Modified:   0000-00-00
  */
-
-//  FLAGS
-/*********************************************************************************/
-//  the bootstrap is loaded.
-define ('IMGDUEL_BOOSTRAP', true);
-
-//  PATHS
-/*********************************************************************************/
-//  Root path
-define ('IMGDUEL_ROOT_PATH', realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..'));
-//  Lib path
-define ('IMGDUEL_LIB_PATH', IMGDUEL_ROOT_PATH . DIRECTORY_SEPARATOR . 'lib');
-//  Class path
-define ('IMGDUEL_CLASS_PATH', IMGDUEL_LIB_PATH . DIRECTORY_SEPARATOR . 'classes');
-//  Config Path
-define ('IMGDUEL_CONF_PATH', IMGDUEL_ROOT_PATH . DIRECTORY_SEPARATOR . 'conf');
-//  Site Root
-define ('IMGDUEL_WWW_PATH', IMGDUEL_ROOT_PATH . DIRECTORY_SEPARATOR . 'www');
-
-//  RUNTIME SETTINGS
-/*********************************************************************************/
-require IMGDUEL_LIB_PATH . DIRECTORY_SEPARATOR . 'runtime.php';
-
-//  INCLUDES
-/*********************************************************************************/
-require IMGDUEL_LIB_PATH . DIRECTORY_SEPARATOR . 'functions.php';
+//  error reporting
+ini_set('display_errors', 1);
+//  default timezone
+date_default_timezone_set('America/New_York');
