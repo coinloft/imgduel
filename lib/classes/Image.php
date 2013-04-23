@@ -77,10 +77,10 @@ class Image implements ITableRowGateway, IDataMap
     public static function getMap()
     {
         return array(
-            'id' => IMGDUEL_DATAMAP_INT,
-            'token' => IMGDUEL_DATAMAP_STRING,
-            'filepath' => IMGDUEL_DATAMAP_STRING,
-            'created' => IMGDUEL_DATAMAP_STRING
+            'id' => IMGDUEL_DATATYPE_INT,
+            'token' => IMGDUEL_DATATYPE_STRING,
+            'filepath' => IMGDUEL_DATATYPE_STRING,
+            'created' => IMGDUEL_DATATYPE_STRING
         );
     }
 

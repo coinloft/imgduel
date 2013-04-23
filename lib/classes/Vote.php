@@ -68,8 +68,8 @@ class Vote implements ITableRowGateway, IDataMap
     public static function getMap()
     {
         return array(
-            'id' => IMGDUEL_DATAMAP_INT,
-            'created' => IMGDUEL_DATAMAP_STRING
+            'id' => IMGDUEL_DATATYPE_INT,
+            'created' => IMGDUEL_DATATYPE_STRING
         );
     }
 

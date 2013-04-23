@@ -22,25 +22,6 @@
  *  Modified:   0000-00-00
  */
 
-if (!defined ('IMGDUEL_DATAMAP_VARS')) {
-    /**
-     *  flag
-     */
-    define ('IMGDUEL_DATAMAP_VARS', true);
-    /**
-     *  default enum
-     */
-    define ('IMGDUEL_DATAMAP_STRING', 0);
-    /**
-     *  int enum
-     */
-    define ('IMGDUEL_DATAMAP_INT',  100);
-    /**
-     *  bool enum
-     */
-    define ('IMGDUEL_DATAMAP_BOOL', 101);
-}
-
 /**
  * Interface IDataMap
  */

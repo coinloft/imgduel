@@ -32,7 +32,7 @@ imgduel_load_class('Config');
 class Database
 {
     /**
-     * Internal database pointer
+     * Internal PDO pointer
      * @var PDO
      */
     private $_pdo;
@@ -54,9 +54,9 @@ class Database
      * @param array $options
      * @param string $config_tag
      */
-    public function  __construct($host, $username, $password, $dbname, $driver, $port = null, $socket = null, $options = array(), $config_tag = '')
+    public function  __construct($host, $username, $password, $dbname, $driver, $port = null, $socket = null, $options = array(), $tag = '')
     {
-        $registry_address = "__PDO__{$config_tag}";
+        $registry_address = "__PDO__{$tag}";
         $this->_pdo = Registry::get($registry_address);
 
         if (!isset($this->_pdo)) {
@@ -118,7 +118,9 @@ class Database
     }
 
     /**
-     *
+     * Fetches an array of objects of type <$class>.  If the requested
+     * class implements the IDataMap interface, the class properties will be
+     * cast to the correct type
      * @param $class
      * @param $sql
      * @return null
@@ -127,11 +129,11 @@ class Database
     {
         $args = func_get_args();
         array_shift($args);
-        $result = call_user_func_array(array($this, '_query'), $args);
-        if (false === $result->exec) {
+        $stmtObj = call_user_func_array(array($this, '_query'), $args);
+        if (false === $stmtObj->exec) {
             return null;
         }
-        $stmt = $result->stmt;
+        $stmt = $stmtObj->stmt;
         if (class_exists($class)) {
             $interfaces = array_values(class_implements($class, false));
             if (in_array('IDataMap', $interfaces, true)) {
@@ -148,13 +150,13 @@ class Database
                     $obj = new $class();
                     foreach ($map as $property => $type) {
                         switch ($type) {
-                            case IMGDUEL_DATAMAP_INT:
+                            case IMGDUEL_DATATYPE_INT:
                                 $obj->$property = (int)$row[$property];
                                 break;
-                            case IMGDUEL_DATAMAP_BOOL:
+                            case IMGDUEL_DATATYPE_BOOL:
                                 $obj->$property = (bool)$row[$property];
                                 break;
-                            case IMGDUEL_DATAMAP_STRING:
+                            case IMGDUEL_DATATYPE_STRING:
                             default:
                                 $obj->$property = (string)$row[$property];
                                 break;
@@ -171,40 +173,43 @@ class Database
     }
 
     /**
+     * Fetches an array of genereric objects
      * @param $sql
      * @return null
      */
     public function fetchObjects($sql)
     {
         $args = func_get_args();
-        $result = call_user_func_array(array($this, '_query'), $args);
-        if (false === $result->exec) {
+        $stmtObj = call_user_func_array(array($this, '_query'), $args);
+        if (false === $stmtObj->exec) {
             return null;
         }
 
-        $stmt = $result->stmt;
+        $stmt = $stmtObj->stmt;
         /** @noinspection PhpUndefinedMethodInspection */
         return $stmt->fetchAll(PDO::FETCH_OBJ);
     }
 
     /**
+     * Fetches an array of associative arrays
      * @param $sql
      * @return null
      */
     public function fetchAll($sql)
     {
         $args = func_get_args();
-        $result = call_user_func_array(array($this, '_query'), $args);
-        if (false === $result->exec) {
+        $stmtObj = call_user_func_array(array($this, '_query'), $args);
+        if (false === $stmtObj->exec) {
             return null;
         }
 
-        $stmt = $result->stmt;
+        $stmt = $stmtObj->stmt;
         /** @noinspection PhpUndefinedMethodInspection */
         return $stmt->fetchAll(PDO::FETCH_ASSOC);
     }
 
     /**
+     * Fetches the first value from the first column in the result
      * @param $sql
      * @return null
      */
@@ -223,6 +228,9 @@ class Database
     }
 
     /**
+     * Fetches an object of type <$class>.  If the requested
+     * class implements the IDataMap interface, the class properties will be
+     * cast to the correct type
      * @param $class
      * @param $sql
      * @return null
@@ -271,6 +279,7 @@ class Database
     }
 
     /**
+     * Fetches a generic object
      * @param $sql
      * @return null
      */
@@ -288,6 +297,7 @@ class Database
     }
 
     /**
+     * Fetches an associative array
      * @param $sql
      * @return null
      */
@@ -305,6 +315,7 @@ class Database
     }
 
     /**
+     * Fetches all values for the first column in the result
      * @param $sql
      * @return array|null
      */
@@ -326,6 +337,7 @@ class Database
     }
 
     /**
+     * Get ID from last insert operation
      * @return mixed
      */
     public function lastInsertId()
@@ -334,6 +346,7 @@ class Database
     }
 
     /**
+     * Get the number of affected rows from last write operation
      * @return int
      */
     public function affectedRows()
@@ -342,6 +355,7 @@ class Database
     }
 
     /**
+     * Write to the database.  This function is used for insert, update, delete, and replace operations
      * @param $sql
      * @return bool
      */
@@ -358,6 +372,7 @@ class Database
     }
 
     /**
+     * Begin a transaction
      * @return bool
      */
     public function startTransaction()
@@ -369,6 +384,7 @@ class Database
     }
 
     /**
+     * Commit a transaction.  If there is no current transaction, this function returns false
      * @return bool
      */
     public function commitTransaction()
@@ -380,6 +396,7 @@ class Database
     }
 
     /**
+     * Rollback a transaction
      * @return bool
      */
     public function rollbackTransaction()
@@ -391,6 +408,7 @@ class Database
     }
 
     /**
+     * Gets the last error from the PDO object
      * @return array
      */
     public function lastError()
@@ -402,6 +420,7 @@ class Database
     }
 
     /**
+     * Private internal query object.  All queries (read/write) are passed through here
      * @param $sql
      * @return stdClass
      */

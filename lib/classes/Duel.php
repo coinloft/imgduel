@@ -87,12 +87,12 @@ class Duel implements ITableRowGateway, IDataMap
     public static function getMap()
     {
         return array(
-            'id' => IMGDUEL_DATAMAP_INT,
-            'image1' => IMGDUEL_DATAMAP_INT,
-            'image2' => IMGDUEL_DATAMAP_INT,
-            'user_id' => IMGDUEL_DATAMAP_INT,
-            'created' => IMGDUEL_DATAMAP_STRING,
-            'token' => IMGDUEL_DATAMAP_STRING
+            'id' => IMGDUEL_DATATYPE_INT,
+            'image1' => IMGDUEL_DATATYPE_INT,
+            'image2' => IMGDUEL_DATATYPE_INT,
+            'user_id' => IMGDUEL_DATATYPE_INT,
+            'created' => IMGDUEL_DATATYPE_STRING,
+            'token' => IMGDUEL_DATATYPE_STRING
         );
     }
 

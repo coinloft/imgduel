@@ -24,21 +24,68 @@
 
 //  FLAGS
 /*********************************************************************************/
-//  the bootstrap is loaded.
+/**
+ *  THE BOOTSTRAP IS LOADED
+ */
 define ('IMGDUEL_BOOSTRAP', true);
 
 //  PATHS
 /*********************************************************************************/
-//  Root path
+/**
+ *  ROOT PATH
+ */
 define ('IMGDUEL_ROOT_PATH', realpath(dirname(__FILE__) . DIRECTORY_SEPARATOR . '..'));
-//  Lib path
+/**
+ *  LIB PATH
+ */
 define ('IMGDUEL_LIB_PATH', IMGDUEL_ROOT_PATH . DIRECTORY_SEPARATOR . 'lib');
-//  Class path
+/**
+ *  CLASS PATH
+ */
 define ('IMGDUEL_CLASS_PATH', IMGDUEL_LIB_PATH . DIRECTORY_SEPARATOR . 'classes');
-//  Config Path
+/**
+ *  CONFIG PATH
+ */
 define ('IMGDUEL_CONF_PATH', IMGDUEL_ROOT_PATH . DIRECTORY_SEPARATOR . 'conf');
-//  Site Root
+/**
+ *  WEB ROOT
+ */
 define ('IMGDUEL_WWW_PATH', IMGDUEL_ROOT_PATH . DIRECTORY_SEPARATOR . 'www');
+
+//  Data Type Enumerations
+/*********************************************************************************/
+/**
+ *  NULL
+ */
+define ('IMGDUEL_DATATYPE_NULL', 0);
+/**
+ *  INTEGER
+ */
+define ('IMGDUEL_DATATYPE_INT', 1);
+/**
+ *  FLOAT
+ */
+define ('IMGDUEL_DATATYPE_FLOAT', 2);
+/**
+ *  STRING
+ */
+define ('IMGDUEL_DATATYPE_BOOL', 3);
+/**
+ *  STRING
+ */
+define ('IMGDUEL_DATATYPE_STRING', 4);
+/**
+ *  ARRAY
+ */
+define ('IMGDUEL_DATATYPE_ARRAY', 5);
+/**
+ *  OBJECT
+ */
+define ('IMGDUEL_DATATYPE_OBJECT', 6);
+/**
+ *  FUNCTION
+ */
+define ('IMGDUEL_DATATYPE_LAMBDA', 7);
 
 //  RUNTIME SETTINGS
 /*********************************************************************************/
@@ -47,3 +94,15 @@ require IMGDUEL_LIB_PATH . DIRECTORY_SEPARATOR . 'runtime.php';
 //  INCLUDES
 /*********************************************************************************/
 require IMGDUEL_LIB_PATH . DIRECTORY_SEPARATOR . 'functions.php';
+
+//  bootstrap the database and config files
+/*********************************************************************************/
+imgduel_load_class('Config');
+imgduel_load_class('Registry');
+imgduel_load_class('Database');
+
+$config = new Config(imgduel_default_config());
+Registry::set('IMGDUEL_CONFIG', $config);
+
+$database = Database::fromConfig($config);
+Registry::set('IMGDUEL_DATABASE', $database);

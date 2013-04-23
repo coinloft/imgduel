@@ -90,13 +90,13 @@ class User implements ITableRowGateway, IDataMap
     public static function getMap()
     {
         return array(
-            'id' => IMGDUEL_DATAMAP_INT,
-            'username' => IMGDUEL_DATAMAP_STRING,
-            'email' => IMGDUEL_DATAMAP_STRING,
-            'created' => IMGDUEL_DATAMAP_STRING,
-            'password' => IMGDUEL_DATAMAP_STRING,
-            'salt' => IMGDUEL_DATAMAP_STRING,
-            'status' => IMGDUEL_DATAMAP_STRING
+            'id' => IMGDUEL_DATATYPE_INT,
+            'username' => IMGDUEL_DATATYPE_STRING,
+            'email' => IMGDUEL_DATATYPE_STRING,
+            'created' => IMGDUEL_DATATYPE_STRING,
+            'password' => IMGDUEL_DATATYPE_STRING,
+            'salt' => IMGDUEL_DATATYPE_STRING,
+            'status' => IMGDUEL_DATATYPE_STRING
         );
     }
 
