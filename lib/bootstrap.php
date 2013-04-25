@@ -57,35 +57,39 @@ define ('IMGDUEL_WWW_PATH', IMGDUEL_ROOT_PATH . DIRECTORY_SEPARATOR . 'www');
 /**
  *  NULL
  */
-define ('IMGDUEL_DATATYPE_NULL', 0);
+define ('IMGDUEL_DATATYPE_NULL', 1);
 /**
  *  INTEGER
  */
-define ('IMGDUEL_DATATYPE_INT', 1);
+define ('IMGDUEL_DATATYPE_INT', 1 << 1);
 /**
  *  FLOAT
  */
-define ('IMGDUEL_DATATYPE_FLOAT', 2);
+define ('IMGDUEL_DATATYPE_FLOAT', 1 << 2);
 /**
  *  STRING
  */
-define ('IMGDUEL_DATATYPE_BOOL', 3);
+define ('IMGDUEL_DATATYPE_BOOL', 1 << 3);
 /**
  *  STRING
  */
-define ('IMGDUEL_DATATYPE_STRING', 4);
+define ('IMGDUEL_DATATYPE_STRING', 1 << 4);
 /**
  *  ARRAY
  */
-define ('IMGDUEL_DATATYPE_ARRAY', 5);
+define ('IMGDUEL_DATATYPE_ARRAY', 1 << 5);
 /**
  *  OBJECT
  */
-define ('IMGDUEL_DATATYPE_OBJECT', 6);
+define ('IMGDUEL_DATATYPE_OBJECT', 1 << 6);
 /**
  *  FUNCTION
  */
-define ('IMGDUEL_DATATYPE_LAMBDA', 7);
+define ('IMGDUEL_DATATYPE_LAMBDA', 1 << 7);
+/**
+ *  FUNCTION
+ */
+define ('IMGDUEL_DATATYPE_EMAIL', 1 << 8);
 
 //  RUNTIME SETTINGS
 /*********************************************************************************/

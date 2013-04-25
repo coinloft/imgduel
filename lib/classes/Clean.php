@@ -24,115 +24,214 @@
 
 class Clean
 {
-//    /**
-//     *  SANITIZES THE INPUT AS AN INTEGER
-//     */
-//    const SANITIZE_INT = 0x00001;
-//    /**
-//     *  SANITIZES THE INPUT AS A BOOLEAN
-//     */
-//    const SANITIZE_BOOL = 0x00002;
-//    /**
-//     *  SANITIZES A STRING AGAINST XSS
-//     */
-//    const SANITIZE_XSS = 0x00004;
-//    /**
-//     *  SANITIZES AN ARRAY ACCORDING TO A WHITELIST
-//     */
-//    const SANITIZE_WHITELIST = 0x00008;
-//    /**
-//     *  VALIDATES AN INTEGER
-//     */
-//    const VALIDATE_INT = 0x00010;
-//    /**
-//     *  VALIDATES AGAINST A WHITELIST
-//     */
-//    const VALIDATE_WHITELIST = 0x00020;
-//    /**
-//     *  VALIDATES AGAINST A REGULAR EXPRESSION
-//     */
-//    const VALIDATE_REGEX = 0x00040;
-//    /**
-//     *  VALIDATES AN EMAIL ADDRESS
-//     */
-//    const VALIDATE_EMAIL = 0x00080;
-//    /**
-//     *  VALIDATES SOMETHING IS NOT EMPTY
-//     */
-//    const VALIDATE_NOTEMPTY = 0x00100;
-//
-//    public static function sanitize ($input, $sanitizations, $params = null, $default = null)
-//    {
-//        if (is_array($sanitizations)) {
-//            $ret = $input;
-//            foreach ($sanitizations as $sanitization) {
-//                $ret = isset($params[$sanitization]) ?
-//                    self::_sanitize($input, $sanitization, $params[$sanitization], $default) :
-//                    self::_sanitize($input, $sanitization, null, $default);
-//            }
-//
-//            return $ret;
-//        } else {
-//            return self::_sanitize($input, $sanitizations, $params, $default);
-//        }
-//    }
-//
-//    private static function _sanitize ($input, $sanitization, $param = null, $default = null)
-//    {
-//        switch ($sanitization) {
-//            case self::SANITIZE_INT:
-//                return (int)$input;
-//            case self::SANITIZE_BOOL:
-//                if (is_array($param) && in_array($input, $param, true)) {
-//                    return true;
-//                }
-//
-//                return isset($default) ? $default : (bool)$input;
-//            case self::SANITIZE_XSS:
-//                $html401 = defined('ENT_HTML401') ? ENT_HTML401 : 0;
-//
-//                return htmlspecialchars($input, ENT_QUOTES | $html401, 'UTF-8');
-//            case self::SANITIZE_WHITELIST:
-//                if (!is_array($param)) {
-//                    return isset($default) ? $default : $input;
-//                }
-//                if (!in_array($input, $param, true)) {
-//                    return isset($default) ? $default : $input;
-//                }
-//
-//                return $input;
-//        }
-//    }
-//
-//    public static function validate ($input, $validations, $params = null)
-//    {
-//        if (is_array($validations)) {
-//            $ret = 1;
-//            foreach ($validations as $validation) {
-//                $ret &= isset($params[$validation]) ?
-//                    self::_validate($input, $validation, $params[$validation]) :
-//                    self::_validate($input, $validation);
-//            }
-//
-//            return (bool)$ret;
-//        } else {
-//            return (bool)self::_validate($input, $validations, $params);
-//        }
-//    }
-//
-//    private static function _validate ($input, $validation, $param = null)
-//    {
-//        switch ($validation) {
-//            case self::VALIDATE_INT:
-//                return (int)ctype_digit($input);
-//
-//            case self::VALIDATE_WHITELIST:
-//                if (!is_array($param)) {
-//                    return 0;
-//                }
-//                return in_array($input, $param, true);
-//            case self::VALIDATE_REGEX:
-//                FILTER_VALIDATE_REGEXP
-//        }
-//    }
+    /**
+     *  SANITIZES THE INPUT AS AN INTEGER
+     */
+    const SANITIZE_INT = 1;
+    /**
+     *  SANITIZES THE INPUT AS A BOOLEAN
+     */
+    const SANITIZE_BOOL = 2;
+    /**
+     *  SANITIZES A STRING AGAINST XSS
+     */
+    const SANITIZE_XSS = 4;
+    /**
+     *  SANITIZES AN ARRAY ACCORDING TO A WHITELIST
+     */
+    const SANITIZE_WHITELIST = 8;
+    /**
+     *  VALIDATES AN INTEGER
+     */
+    const VALIDATE_INT = 16;
+    /**
+     *  VALIDATES AGAINST A WHITELIST
+     */
+    const VALIDATE_WHITELIST = 32;
+    /**
+     *  VALIDATES AGAINST A REGULAR EXPRESSION
+     */
+    const VALIDATE_REGEX = 64;
+    /**
+     *  VALIDATES AN EMAIL ADDRESS
+     */
+    const VALIDATE_EMAIL = 128;
+
+    /**
+     * @param int $superglobal
+     * @param array $filters
+     * @param array $params
+     * @param array $defaults
+     * @return array
+     */
+    public static function scrubSuperGlobal($superglobal, array $filters, array $params = null, array $defaults = null)
+    {
+        $_ref = null;
+        switch ($superglobal) {
+            case INPUT_GET:
+                $_ref =& $_GET;
+                break;
+            case INPUT_POST:
+                $_ref =& $_POST;
+                break;
+            case INPUT_REQUEST:
+                $_ref =& $_REQUEST;
+                break;
+            case INPUT_SERVER:
+                $_ref =& $_SERVER;
+                break;
+            case INPUT_SESSION:
+                $_ref =& $_SESSION;
+                break;
+            case INPUT_COOKIE:
+                $_ref =& $_COOKIE;
+                break;
+            case INPUT_ENV:
+                $_ref =& $_ENV;
+                break;
+            default:
+                $_ref = array();
+        }
+
+        return self::scrubArray($_ref, $filters, $params, $defaults);
+    }
+
+    /**
+     * @param array $array
+     * @param array $filters
+     * @param array $params
+     * @param array $defaults
+     * @return array
+     */
+    public static function scrubArray(array $array, array $filters, array $params = null, array $defaults = null)
+    {
+        $filtered_inputs = array_intersect_key($array, $filters);
+        $filtered_outputs = array();
+
+        foreach ($filtered_inputs as $key => $dirty) {
+            $_param = isset($params[$key]) ? $params[$key] : null;
+            $_default = isset($defaults[$key]) ? $defaults[$key] : null;
+            $filtered_outputs[$key] = self::sanitize($dirty, $filters[$key], $_param, $_default);
+        }
+
+        return $filtered_outputs;
+    }
+
+    /**
+     * @param $input
+     * @param $sanitize_type
+     * @param null $params
+     * @param null $default
+     * @return bool|int|null|string
+     */
+    public static function sanitize($input, $sanitize_type, $params = null, $default = null)
+    {
+        if (is_array($sanitize_type)) {
+            $ret = $input;
+            foreach ($sanitize_type as $sanitizer) {
+                $ret = isset($params[$sanitizer]) ?
+                    self::_sanitize($input, $sanitizer, $params[$sanitizer], $default) :
+                    self::_sanitize($input, $sanitizer, null, $default);
+            }
+
+            return $ret;
+        } else {
+            return self::_sanitize($input, $sanitize_type, $params, $default);
+        }
+    }
+
+    /**
+     * @param $input
+     * @param $sanitizer
+     * @param null $param
+     * @param null $default
+     * @return bool|int|null|string
+     */
+    private static function _sanitize($input, $sanitizer, $param = null, $default = null)
+    {
+        switch ($sanitizer) {
+            case self::SANITIZE_INT:
+                return (int)$input;
+            case self::SANITIZE_BOOL:
+                if (is_array($param) && in_array($input, $param, true)) {
+                    return true;
+                }
+
+                return isset($default) ? $default : (bool)$input;
+            case self::SANITIZE_XSS:
+                $html401 = defined('ENT_HTML401') ? ENT_HTML401 : 0;
+
+                return htmlspecialchars($input, ENT_QUOTES | $html401, 'UTF-8');
+            case self::SANITIZE_WHITELIST:
+                if (!is_array($param)) {
+                    return isset($default) ? $default : $input;
+                }
+                if (!in_array($input, $param, true)) {
+                    return isset($default) ? $default : $input;
+                }
+
+                return $input;
+            default:
+                return $input;
+        }
+    }
+
+    /**
+     * @param mixed $input
+     * @param int|array $validations
+     * @param mixed $params
+     * @return bool|int
+     */
+    public static function validate($input, $validations, $params = null)
+    {
+        if (is_array($validations)) {
+            $ret = 1;
+            foreach ($validations as $validation) {
+                $ret &= isset($params[$validation]) ?
+                    self::_validate($input, $validation, $params[$validation]) :
+                    self::_validate($input, $validation);
+                if (0 === $ret) {
+                    return false;
+                }
+            }
+
+            return true;
+        } else {
+            return self::_validate($input, $validations, $params);
+        }
+    }
+
+    /**
+     * @param $input
+     * @param $validation
+     * @param null $param
+     * @return bool
+     */
+    private static function _validate($input, $validation, $param = null)
+    {
+        switch ($validation) {
+            case self::VALIDATE_INT:
+                return ctype_digit($input);
+
+            case self::VALIDATE_WHITELIST:
+                if (!is_array($param)) {
+                    return false;
+                }
+                return in_array($input, $param, true);
+
+            case self::VALIDATE_REGEX:
+                $regexp = filter_var($input, FILTER_VALIDATE_REGEXP, array(
+                    'options' => array(
+                        'regexp' => $param
+                    )
+                ));
+                return ($regexp !== false);
+            case self::VALIDATE_EMAIL:
+                return (false !== filter_var($input, FILTER_VALIDATE_EMAIL));
+
+            default:
+                return false;
+
+        }
+    }
 }

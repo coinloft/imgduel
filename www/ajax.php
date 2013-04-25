@@ -15,10 +15,10 @@
  *  OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  *  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- *  index.php
+ *  ajax.php
  *  Build A Social App In PHP
  *  SkillShare/Start It Up Delaware/The coIN Loft
- *  Created:    2013-03-30
+ *  Created:    2013-04-23
  *  Modified:   0000-00-00
  */
 require realpath(dirname(__FILE__) . '/../lib') . '/bootstrap.php';
