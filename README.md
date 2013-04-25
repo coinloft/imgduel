@@ -10,6 +10,8 @@
     *    The session class provides a convenience wrapper for the PHP user session, as well as methods to create or destroy sessions.
 *   _**Database**_
     *    The database class serves as a wrapper for the PDO database api.
+*   _**Clean**_
+    *    The clean class sanitizes user input
 
 ---
 
