@@ -71,6 +71,22 @@ class Image implements ITableRowGateway, IDataMap
     }
 
     /**
+     * Fatch Image by token
+     * @param $token
+     * @return mixed
+     */
+    public static function fetchByToken($token)
+    {
+        $db = Registry::get('IMGDUEL_DATABASE');
+        $sql = 'SELECT `id`, `token`, `filepath`, `created` FROM `image` WHERE `token` = ?';
+        $ret = $db->fetchObjectOfType('Image', $sql, $token);
+        if (isset($ret)) {
+            $ret->_new = false;
+        }
+        return $ret;
+    }
+
+    /**
      * Gets a map to all the class members
      * @return array
      */

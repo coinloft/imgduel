@@ -99,6 +99,11 @@ require IMGDUEL_LIB_PATH . DIRECTORY_SEPARATOR . 'runtime.php';
 /*********************************************************************************/
 require IMGDUEL_LIB_PATH . DIRECTORY_SEPARATOR . 'functions.php';
 
+//  Exception Wrappers
+/*********************************************************************************/
+class DatabaseException extends PDOException {}
+class UniqueKeyException extends PDOException {}
+
 //  bootstrap the database and config files
 /*********************************************************************************/
 imgduel_load_class('Config');

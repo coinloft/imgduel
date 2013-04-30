@@ -15,26 +15,44 @@
  *  OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  *  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- *  index.php
+ *  upload.php
  *  Build A Social App In PHP
  *  SkillShare/Start It Up Delaware/The coIN Loft
- *  Created:    2013-03-30
+ *  Created:    2013-04-25
  *  Modified:   0000-00-00
  */
 require realpath(dirname(__FILE__) . '/../lib') . '/bootstrap.php';
 imgduel_load_class('Session');
 imgduel_load_class('User');
-imgduel_load_class('Token');
+imgduel_load_class('ImageUploader');
+imgduel_load_class('AuthHandler');
+imgduel_load_class('Logger');
 
 $session = new Session();
-$loggedIn = isset($session->loggedin);
-if ($loggedIn) {
-    unset($session->challenge);
-} elseif (!isset($session->challenge)) {
-    $token = new Token();
-    $session->challenge = (string)$token;
+
+if (!isset($session->loggedin)) {
+    $session->destroy();
+    header('Status: 403 Forbidden', true, 403);
+    exit();
 }
 
+if ('POST' === $_SERVER['REQUEST_METHOD']) {
+    if (!AuthHandler::validateCSRFToken()) {
+        $session->destroy();
+        header('Status: 403 Forbidden', true, 403);
+        exit();
+    }
+
+    //  try to upload the image
+    $result = ImageUploader::uploadImage('image');
+    if ($result->error) {
+        $session->errorMessage = $result->message;
+    } else {
+        Logger::imageUploaded($result->image_id, $result);
+    }
+}
+
+$kb = ImageUploader::MAX_IMAGE_BYTES/1000;
 require IMGDUEL_WWW_PATH . '/include/header.inc';
-require $loggedIn ? IMGDUEL_WWW_PATH . '/include/duel.inc' : IMGDUEL_WWW_PATH . '/include/index.inc';
+require IMGDUEL_WWW_PATH . '/include/upload.inc';
 require IMGDUEL_WWW_PATH . '/include/footer.inc';

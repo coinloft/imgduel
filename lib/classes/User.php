@@ -101,6 +101,22 @@ class User implements ITableRowGateway, IDataMap
     }
 
     /**
+     * Fetches a user by their username
+     * @param $uname
+     * @return mixed
+     */
+    public static function getAuthenticationTokensForUsername($uname)
+    {
+        $db = Registry::get('IMGDUEL_DATABASE');
+        $sql = 'SELECT `id`, `password`, `salt`, `status` FROM `user` WHERE `username` = ?';
+        $ret = $db->fetchObject($sql, $uname);
+        if (isset($ret)) {
+            $ret->_new = false;
+        }
+        return $ret;
+    }
+
+    /**
      *  Save User
      */
     public function save()

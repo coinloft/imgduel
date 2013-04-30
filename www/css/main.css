@@ -1,0 +1,25 @@
+
+
+/* ==========================================================================
+   Author's custom styles
+   ========================================================================== */
+.error {
+    color: #ff6e16;
+}
+
+.info {
+    color: #b1c8ff;
+}
+
+.hero {
+    text-align: center;
+}
+.hero h2 {
+    margin: 0px 200px 0px 200px;
+}
+.hero h4 {
+     margin: 0px 200px 0px 200px;
+ }
+.wee {
+    font-size: 0.5em;
+}

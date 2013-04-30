@@ -151,14 +151,14 @@ class Database
                     foreach ($map as $property => $type) {
                         switch ($type) {
                             case IMGDUEL_DATATYPE_INT:
-                                $obj->$property = (int)$row[$property];
+                                $obj->$property = isset($row[$property]) ? (int)$row[$property] : 0;
                                 break;
                             case IMGDUEL_DATATYPE_BOOL:
-                                $obj->$property = (bool)$row[$property];
+                                $obj->$property = isset($row[$property]) ? (bool)$row[$property] : false;
                                 break;
                             case IMGDUEL_DATATYPE_STRING:
                             default:
-                                $obj->$property = (string)$row[$property];
+                                $obj->$property = isset($row[$property]) ? (string)$row[$property] : null;
                                 break;
                         }
                     }
@@ -222,7 +222,6 @@ class Database
         }
 
         $stmt = $stmtObj->stmt;
-        var_dump($stmt);
         /** @noinspection PhpUndefinedMethodInspection */
         return $stmt->fetchColumn();
     }
@@ -257,15 +256,15 @@ class Database
                 $obj = new $class();
                 foreach ($map as $property => $type) {
                     switch ($type) {
-                        case IMGDUEL_DATAMAP_INT:
-                            $obj->$property = (int)$assoc[$property];
+                        case IMGDUEL_DATATYPE_INT:
+                            $obj->$property = isset($assoc[$property]) ? (int)$assoc[$property] : 0;
                             break;
-                        case IMGDUEL_DATAMAP_BOOL:
-                            $obj->$property = (bool)$assoc[$property];
+                        case IMGDUEL_DATATYPE_BOOL:
+                            $obj->$property = isset($assoc[$property]) ? (bool)$assoc[$property] : false;
                             break;
-                        case IMGDUEL_DATAMAP_STRING:
+                        case IMGDUEL_DATATYPE_STRING:
                         default:
-                            $obj->$property = (string)$assoc[$property];
+                            $obj->$property = isset($assoc[$property]) ? (string)$assoc[$property] : null;
                             break;
                     }
                 }
@@ -444,8 +443,7 @@ class Database
                         $stmt->bindValue($p, $args[$i], PDO::PARAM_BOOL);
                         break;
                     default:
-                        $v = $this->_pdo->quote($args[$i]);
-                        $stmt->bindValue($p, $v, PDO::PARAM_STR);
+                        $stmt->bindValue($p, $args[$i], PDO::PARAM_STR);
                 }
             }
             $ret = new stdClass();
@@ -454,12 +452,11 @@ class Database
 
             return $ret;
         } catch (PDOException $ex) {
-            $ret = new stdClass();
-            $ret->stmt = false;
-            $ret->exec = false;
-            $ret->error = $ex->getCode();
-            trigger_error($ex->getMessage(), E_USER_WARNING);
-            return $ret;
+            $error = (int)$ex->getCode();
+            if (23000 === $error) {
+                throw new UniqueKeyException($ex->getMessage(), 2300, $ex);
+            }
+            throw new DatabaseException($ex->getMessage(), (int)$ex->getCode(), $ex);
         }
     }
 }

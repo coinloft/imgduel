@@ -15,26 +15,44 @@
  *  OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  *  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- *  index.php
+ *  login.php
  *  Build A Social App In PHP
  *  SkillShare/Start It Up Delaware/The coIN Loft
  *  Created:    2013-03-30
  *  Modified:   0000-00-00
  */
 require realpath(dirname(__FILE__) . '/../lib') . '/bootstrap.php';
+imgduel_load_class('AuthHandler');
+imgduel_load_class('Clean');
 imgduel_load_class('Session');
-imgduel_load_class('User');
+imgduel_load_class('Logger');
 imgduel_load_class('Token');
 
 $session = new Session();
-$loggedIn = isset($session->loggedin);
-if ($loggedIn) {
-    unset($session->challenge);
-} elseif (!isset($session->challenge)) {
-    $token = new Token();
-    $session->challenge = (string)$token;
+$postData = Clean::scrubSuperGlobal(INPUT_POST, array(
+    'username' => Clean::SANITIZE_XSS,
+    'password' => Clean::SANITIZE_NONE,
+    'challenge' => Clean::SANITIZE_NONE
+));
+
+if (!isset($session->challenge) || ($session->challenge !== $postData['challenge'])) {
+    header('Status: 403 Forbidden', true, 403);
+    exit();
 }
 
-require IMGDUEL_WWW_PATH . '/include/header.inc';
-require $loggedIn ? IMGDUEL_WWW_PATH . '/include/duel.inc' : IMGDUEL_WWW_PATH . '/include/index.inc';
-require IMGDUEL_WWW_PATH . '/include/footer.inc';
+$auth = AuthHandler::authenticateWithCredentials($postData['username'], $postData['password']);
+if (isset($auth) && $auth instanceof User) {
+    $session->user = $auth;
+    $session->loggedin = true;
+    $token = new Token();
+    $session->csrf = (string)$token;
+    unset($session->challenge);
+
+    //  always regenerate the session id after a privilege escalation/deescalation
+    session_regenerate_id();
+    Logger::userLogin($auth);
+} else {
+    $session->errorMessage = 'ERROR_LOGIN_FAILED';
+}
+header('Location: /index.php', true, 303);
+exit();

@@ -25,6 +25,10 @@
 class Clean
 {
     /**
+     *  LETS INPUT PASS THROUGH
+     */
+    const SANITIZE_NONE = 0;
+    /**
      *  SANITIZES THE INPUT AS AN INTEGER
      */
     const SANITIZE_INT = 1;
@@ -56,6 +60,18 @@ class Clean
      *  VALIDATES AN EMAIL ADDRESS
      */
     const VALIDATE_EMAIL = 128;
+    /**
+     *  VALIDATES FOR REAL VALUE
+     */
+    const VALIDATE_NOTEMPTY = 256;
+    /**
+     *  VAIDATES EQUALITY
+     */
+    const VALIDATE_EQUALS = 512;
+    /**
+     *  VALIDATES INEQUALITY
+     */
+    const VALIDATE_NOTEQUAL = 1024;
 
     /**
      * @param int $superglobal
@@ -150,6 +166,8 @@ class Clean
     private static function _sanitize($input, $sanitizer, $param = null, $default = null)
     {
         switch ($sanitizer) {
+            case self::SANITIZE_NONE:
+                return $input;
             case self::SANITIZE_INT:
                 return (int)$input;
             case self::SANITIZE_BOOL:
@@ -228,7 +246,24 @@ class Clean
                 return ($regexp !== false);
             case self::VALIDATE_EMAIL:
                 return (false !== filter_var($input, FILTER_VALIDATE_EMAIL));
-
+            case self::VALIDATE_EQUALS:
+                return ($input === $param);
+            case self::VALIDATE_NOTEQUAL:
+                return ($input !== $param);
+            case self::VALIDATE_NOTEMPTY:
+                if (isset($param)) {
+                    switch ($param) {
+                        case IMGDUEL_DATATYPE_INT:
+                            return ((int)$input > 0);
+                        case IMGDUEL_DATATYPE_STRING:
+                            return isset($input{0});
+                        case IMGDUEL_DATATYPE_FLOAT:
+                            return ((float)$input > 0);
+                        case IMGDUEL_DATATYPE_ARRAY:
+                            return (count((array)$input) > 0);
+                    }
+                }
+                return !empty($input);
             default:
                 return false;
 

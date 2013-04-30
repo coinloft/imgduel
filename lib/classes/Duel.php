@@ -80,6 +80,17 @@ class Duel implements ITableRowGateway, IDataMap
         return $ret;
     }
 
+    public static function fetchByToken($token)
+    {
+        $db = Registry::get('IMGDUEL_DATABASE');
+        $sql = 'SELECT `id`, `image1`, `image2`, `user_id`, `created`, `token` FROM `duel` WHERE `token` = ?';
+        $ret = $db->fetchObjectOfType('Duel', $sql, $token);
+        if (isset($ret)) {
+            $ret->_new = false;
+        }
+        return $ret;
+    }
+
     /**
      * Gets a map to all the class members
      * @return array

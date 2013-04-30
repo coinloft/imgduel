@@ -15,26 +15,37 @@
  *  OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  *  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- *  index.php
+ *  image.php
  *  Build A Social App In PHP
  *  SkillShare/Start It Up Delaware/The coIN Loft
- *  Created:    2013-03-30
+ *  Created:    2013-04-28
  *  Modified:   0000-00-00
  */
 require realpath(dirname(__FILE__) . '/../lib') . '/bootstrap.php';
 imgduel_load_class('Session');
-imgduel_load_class('User');
-imgduel_load_class('Token');
+imgduel_load_class('ImageFetcher');
 
+if (!isset($_GET['u'])) {
+    header('Status: 404 Not Found', true, 404);
+    exit();
+}
 $session = new Session();
-$loggedIn = isset($session->loggedin);
-if ($loggedIn) {
-    unset($session->challenge);
-} elseif (!isset($session->challenge)) {
-    $token = new Token();
-    $session->challenge = (string)$token;
+if (!isset($session->loggedin)) {
+    header('Status: 404 Not Found', true, 404);
+    exit();
 }
 
-require IMGDUEL_WWW_PATH . '/include/header.inc';
-require $loggedIn ? IMGDUEL_WWW_PATH . '/include/duel.inc' : IMGDUEL_WWW_PATH . '/include/index.inc';
-require IMGDUEL_WWW_PATH . '/include/footer.inc';
+$path = ImageFetcher::fetchUserImageLocation($session->user, $_GET['u']);
+if (false === $path) {
+    header('Status: 404 Not Found', true, 404);
+    exit();
+}
+if (!file_exists($path)) {
+    header('Status: 404 Not Found', true, 404);
+    exit();
+}
+header('Content-Type: image/png');
+$img = imagecreatefrompng($path);
+imagepng($img, null, 4, PNG_ALL_FILTERS);
+imagedestroy($img);
+exit();

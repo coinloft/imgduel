@@ -15,26 +15,44 @@
  *  OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  *  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- *  index.php
+ *  ImageFetcher.php
  *  Build A Social App In PHP
  *  SkillShare/Start It Up Delaware/The coIN Loft
- *  Created:    2013-03-30
+ *  Created:    2013-04-28
  *  Modified:   0000-00-00
  */
-require realpath(dirname(__FILE__) . '/../lib') . '/bootstrap.php';
-imgduel_load_class('Session');
+
 imgduel_load_class('User');
-imgduel_load_class('Token');
 
-$session = new Session();
-$loggedIn = isset($session->loggedin);
-if ($loggedIn) {
-    unset($session->challenge);
-} elseif (!isset($session->challenge)) {
-    $token = new Token();
-    $session->challenge = (string)$token;
+/**
+ * Class ImageFetcher
+ */
+class ImageFetcher
+{
+    /**
+     * @param User $user
+     * @param $token
+     * @return mixed
+     */
+    public static function fetchUserImageLocation(User $user, $token)
+    {
+        $db = Registry::get('IMGDUEL_DATABASE');
+        $sql = <<<EOT
+SELECT `image`.`filepath`
+FROM `image`
+INNER JOIN `user_image` ON `user_image`.`image_id` = `image`.`id`
+INNER JOIN `user` ON `user`.`id` = `user_image`.`user_id`
+WHERE `image`.`token` = ?
+AND `user`.`id` = ?
+EOT;
+        return $db->fetchOne($sql, $token, $user->id);
+    }
+
+    /**
+     * @param $token
+     */
+    public static function fetchDuelImageLocation($token)
+    {
+
+    }
 }
-
-require IMGDUEL_WWW_PATH . '/include/header.inc';
-require $loggedIn ? IMGDUEL_WWW_PATH . '/include/duel.inc' : IMGDUEL_WWW_PATH . '/include/index.inc';
-require IMGDUEL_WWW_PATH . '/include/footer.inc';

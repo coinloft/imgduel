@@ -89,6 +89,25 @@ class Session
     }
 
     /**
+     * @param $key
+     * @return bool
+     */
+    public function __isset($key)
+    {
+        return isset($_SESSION['__DEFAULT__'][$key]);
+    }
+
+    /**
+     * @param $key
+     */
+    public function __unset($key)
+    {
+        if (isset($_SESSION['__DEFAULT__'][$key])) {
+            unset($_SESSION['__DEFAULT__'][$key]);
+        }
+    }
+
+    /**
      * @return string
      */
     public function __toString()

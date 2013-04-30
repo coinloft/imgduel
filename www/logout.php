@@ -15,26 +15,23 @@
  *  OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN
  *  CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.
  *
- *  index.php
+ *  logout.php
  *  Build A Social App In PHP
  *  SkillShare/Start It Up Delaware/The coIN Loft
- *  Created:    2013-03-30
+ *  Created:    2013-04-25
  *  Modified:   0000-00-00
  */
 require realpath(dirname(__FILE__) . '/../lib') . '/bootstrap.php';
 imgduel_load_class('Session');
-imgduel_load_class('User');
-imgduel_load_class('Token');
-
+imgduel_load_class('Logger');
 $session = new Session();
-$loggedIn = isset($session->loggedin);
-if ($loggedIn) {
-    unset($session->challenge);
-} elseif (!isset($session->challenge)) {
-    $token = new Token();
-    $session->challenge = (string)$token;
+
+$user = $session->user;
+if (isset($user) && $user instanceof User) {
+    Logger::userLogout($user);
 }
 
-require IMGDUEL_WWW_PATH . '/include/header.inc';
-require $loggedIn ? IMGDUEL_WWW_PATH . '/include/duel.inc' : IMGDUEL_WWW_PATH . '/include/index.inc';
-require IMGDUEL_WWW_PATH . '/include/footer.inc';
+$session->destroy();
+
+header('Location: /', true, 303);
+exit();
